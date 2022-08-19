@@ -59,6 +59,12 @@ describe('CRUD routes', () => {
     expect(res.status).toEqual(403);
   });
 
+  it('/users should return a 200 if user is admin', async () => {
+    const [agent] = await registerAndLogin({ email: 'admin' });
+    const res = await agent.get('/api/v1/users/');
+    expect(res.status).toEqual(200);
+  });
+
   afterAll(() => {
     pool.end();
     
