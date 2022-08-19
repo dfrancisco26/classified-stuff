@@ -65,6 +65,12 @@ describe('CRUD routes', () => {
     expect(res.status).toEqual(200);
   });
 
+  it('/DELETE sessions deletes user session, or logs out', async () => {
+    const [agent] = await registerAndLogin();
+    const res = await agent.delete('/api/v1/users/sessions');
+    expect (res.status).toEqual(204);
+  });
+  
   afterAll(() => {
     pool.end();
     
