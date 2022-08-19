@@ -16,7 +16,6 @@ describe('CRUD routes', () => {
   it('creates a new user', async () => {
     const res = await request(app).post('/api/v1/users').send(mockUser);
     const { email } = mockUser;
-
     expect(res.body).toEqual({
       id: expect.any(String),
       email,
@@ -30,7 +29,7 @@ describe('CRUD routes', () => {
       .send({ email: 'dndfreak@gmail.com', password: 'fourfour44' });
     expect(res.status).toEqual(200);
   });
-  
+
   afterAll(() => {
     pool.end();
     
