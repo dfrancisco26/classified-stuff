@@ -70,7 +70,31 @@ describe('CRUD routes', () => {
     const res = await agent.delete('/api/v1/users/sessions');
     expect (res.status).toEqual(204);
   });
-  
+
+  it('/GET returns a list of secrets for authenticated users only', async () => {
+    const [agent] = await registerAndLogin();
+    const res = await agent.get('/api/v1/secrets');
+    expect(res.body).toEqual([{
+      id: expect.any(String),
+      title: 'Project Unicorn',
+      description: 'Bjork twinning',
+      createdAt: expect.any(String),
+    },
+    {
+      id: expect.any(String),
+      title: 'Project Wow',
+      description: 'Dogecoin rugpull',
+      createdAt: expect.any(String),
+    },
+    {
+      id: expect.any(String),
+      title: 'Project Cerveza',
+      description: 'obtain beer',
+      createdAt: expect.any(String),
+    }
+    ]);
+  });
+
   afterAll(() => {
     pool.end();
     
